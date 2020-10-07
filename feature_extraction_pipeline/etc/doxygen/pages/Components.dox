@@ -1,0 +1,11 @@
+/**
+\addtogroup Components Components
+Components are the main building blocks of ArmarX and offer services for other applications via Ice.
+Each component usually implements one Ice interface by which it offers its services.
+They can be configured with \ref armarx-componentproperties via config files.
+
+\defgroup corcal-Components corcal Components
+\ingroup corcal Components
+
+
+*/

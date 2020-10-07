@@ -1,0 +1,15 @@
+/**
+  \mainpage
+
+  corcal provides
+
+  \li \subpage corcal-Overview "corcal Overview"
+  \li \subpage corcal-Tutorials "corcal Tutorials"
+  \li \subpage corcal-HowTos "corcal Howtos"
+  \li \subpage corcal-FAQ "corcal FAQ"
+  \li \subpage corcal-Components "corcal Components"
+  \li \subpage corcal-GuiPlugins "corcal Gui Plugins"
+  \li \subpage corcal-About "corcal About"
+  \li \subpage corcal-License "corcal License"
+
+*/

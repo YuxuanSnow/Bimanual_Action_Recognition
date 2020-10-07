@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scenario name="ral_figure" creation="2019-04-23.18:54:10" globalConfigName="./config/global.cfg" package="corcal">
+	<application name="PlaybackImageProviderApp" instance="s4" package="VisionX" enabled="true"/>
+	<application name="visualisation" instance="" package="corcal" enabled="true"/>
+	<application name="catalyst" instance="s4c" package="corcal" enabled="true"/>
+	<application name="PlaybackImageProviderApp" instance="s1" package="VisionX" enabled="true"/>
+	<application name="PlaybackImageProviderApp" instance="s6" package="VisionX" enabled="true"/>
+	<application name="catalyst" instance="s1c" package="corcal" enabled="true"/>
+	<application name="catalyst" instance="s6c" package="corcal" enabled="true"/>
+</scenario>
+

@@ -1,0 +1,4 @@
+-e git+ssh://git@gitlab.com/dreher/kit_bimacs_dataset.git@v1.3.0#egg=kit_bimacs_dataset
+numpy==1.16.3
+opencv-python==4.1.0.25
+psutil==5.6.2

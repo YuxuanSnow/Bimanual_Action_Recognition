@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VariantInfo>
+    <!--
+    <Lib name="corcalCore">
+        <VariantFactory include="corcal/libraries/core/corcalObjectFactories.h" />
+        <Variant baseType="::armarx::MyVariantBase" dataType="::armarx::MyVariant" humanName="My Variant" />
+
+        <Proxy include="corcal/interface/units/MyUnit.h"
+            humanName="MyUnit"
+            typeName="MyUnitInterfacePrx"
+            memberName="myUnit"
+            getterName="getMyUnit"
+            propertyName="MyUnitName"
+            propertyIsOptional="true"
+            propertyDefaultValue="MyUnit" />
+
+        <Topic include="corcal/interface/category/MyInterface.h"
+            humanName="My Interface Topic"
+            typeName="MyInterfacePrx"
+            memberName="myInterfaceTopic"
+            getterName="getMyInterfaceTopic"
+            propertyName="MyInterfaceTopicName"
+            propertyIsOptional="true"
+            propertyDefaultValue="MyInterfaceUpdates" />
+    </Lib>
+    -->
+</VariantInfo>

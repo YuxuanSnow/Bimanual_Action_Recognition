@@ -1,0 +1,10 @@
+/**
+
+\page corcal-GuiPlugins  corcal Gui Plugins
+
+This is a list of Gui Plugins available in corcal
+
+\subpage corcal-GuiPlugins-WidgetName The page for WidgetName is defined in the WidgetNameWidgetController header file
+
+
+*/

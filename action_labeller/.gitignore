@@ -1,0 +1,5 @@
+.pathscache
+venv
+.idea
+recordings
+__pycache__

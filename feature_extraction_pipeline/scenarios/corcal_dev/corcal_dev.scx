@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scenario name="corcal_dev" creation="2018-06-29.03:49:26 PM" globalConfigName="./config/global.cfg" package="corcal" deploymentType="local" nodeName="NodeMain">
+	<application name="ImageSequenceProvider" instance="in_dummy" package="VisionX" nodeName="" enabled="true" iceAutoRestart="false"/>
+	<application name="OpenNIPointCloudProvider" instance="in_live" package="VisionX" nodeName="" enabled="true" iceAutoRestart="false"/>
+	<application name="ImageSequenceProvider" instance="in_dummy_obj" package="VisionX" nodeName="" enabled="true" iceAutoRestart="false"/>
+	<application name="ImageSequenceProvider" instance="in_train" package="VisionX" nodeName="" enabled="true" iceAutoRestart="false"/>
+	<application name="PlaybackImageProviderApp" instance="" package="VisionX" nodeName="" enabled="true" iceAutoRestart="false"/>
+	<application name="catalyst" instance="" package="corcal" nodeName="" enabled="true" iceAutoRestart="false"/>
+	<application name="visualisation" instance="" package="corcal" nodeName="" enabled="true" iceAutoRestart="false"/>
+	<application name="ssrfeatex" instance="" package="corcal" nodeName="" enabled="true" iceAutoRestart="false"/>
+	<application name="outrec" instance="" package="corcal" nodeName="" enabled="true" iceAutoRestart="false"/>
+	<application name="cnnreplay" instance="" package="corcal" nodeName="" enabled="true" iceAutoRestart="false"/>
+	<application name="OpenPoseEstimationApp" instance="" package="VisionX" nodeName="" enabled="true" iceAutoRestart="false"/>
+</scenario>
+

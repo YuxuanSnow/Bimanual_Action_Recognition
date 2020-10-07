@@ -1,0 +1,5 @@
+add_subdirectory(catalyst)
+add_subdirectory(cnnreplay)
+add_subdirectory(outrec)
+add_subdirectory(ssrfeatex)
+add_subdirectory(visualisation)
