@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from distutils.core import setup
+#publish package 'bimacs'
 
 setup(name='kit_bimacs_dataset',
       version='1.3.1',
