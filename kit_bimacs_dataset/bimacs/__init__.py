@@ -13,6 +13,8 @@ rgbd_data = 'bimacs_rgbd_data'
 rgbd_data_ground_truth = 'bimacs_rgbd_data_ground_truth'
 
 # Dataset subjects, tasks and takes.
+
+# Totally 6 different people in dataset to help generalization
 subject_1: str = 'subject_1'
 subject_2: str = 'subject_2'
 subject_3: str = 'subject_3'
@@ -20,6 +22,7 @@ subject_4: str = 'subject_4'
 subject_5: str = 'subject_5'
 subject_6: str = 'subject_6'
 subjects: List[str] = [subject_1, subject_2, subject_3, subject_4, subject_5, subject_6]
+# Totally 9 tasks of each people
 task_1_cooking: str = 'task_1_k_cooking'
 task_2_cooking_with_bowls: str = 'task_2_k_cooking_with_bowls'
 task_3_pouring: str = 'task_3_k_pouring'
@@ -32,6 +35,7 @@ task_9_sawing: str = 'task_9_w_sawing'
 kitchen_tasks: List[str] = [task_1_cooking, task_2_cooking_with_bowls, task_3_pouring, task_4_wiping, task_5_cereals]
 workshop_tasks: List[str] = [task_6_hard_drive, task_7_free_hard_drive, task_8_hammering, task_9_sawing]
 tasks: List[str] =  kitchen_tasks + workshop_tasks
+# Totally 9 takes of each tasks of each subject (9 Mal aufgenommen)
 take_0: str = 'take_0'
 take_1: str = 'take_1'
 take_2: str = 'take_2'
@@ -43,6 +47,7 @@ take_7: str = 'take_7'
 take_8: str = 'take_8'
 take_9: str = 'take_9'
 takes: List[str] = [take_0, take_1, take_2, take_3, take_4, take_5, take_6, take_7, take_8, take_9]
+# Could be operated by left hand or right hand
 left_hand_side: str = 'left_hand'
 right_hand_side: str = 'right_hand'
 sides: List[str] = [left_hand_side, right_hand_side]
