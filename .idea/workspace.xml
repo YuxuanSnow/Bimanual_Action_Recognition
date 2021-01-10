@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b34aa40-1a66-4c9c-983b-587d79741d5f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/action_classifier/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/action_classifier/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Bimanual_Action_Recognition.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Bimanual_Action_Recognition.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Untitled-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Untitled-checkpoint.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Untitled.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Untitled.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +16,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JupyterTrust" id="433541fb-78b2-4e8c-ba26-c9de0572b4cc" />
   <component name="ProjectId" id="1mmaHNLxApiX42KN6Du5HFvOk7N" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -20,7 +25,33 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/gpnn" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Bimac" type="PythonConfigurationType" factoryName="Python">
+      <module name="Bimanual_Action_Recognition" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../anaconda3/envs/bimac/bin/python" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -30,13 +61,66 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610101133855</updated>
+      <workItem from="1610297272034" duration="820000" />
+      <workItem from="1610298110797" duration="2139000" />
+      <workItem from="1610302812925" duration="695000" />
     </task>
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="743" y="298" width="424" height="491" key="FileChooserDialogImpl" timestamp="1610115149934">
+    <state x="789" y="394" width="332" height="299" key="#Other_File_Types" timestamp="1610298346080">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="743" y="298" width="424" height="491" key="FileChooserDialogImpl/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610115149934" />
+    <state x="789" y="394" width="332" height="299" key="#Other_File_Types/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610298346080" />
+    <state x="418" y="198" width="1084" height="736" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1610298600818">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="418" y="198" width="1084" height="736" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610298600818" />
+    <state x="743" y="298" width="424" height="491" key="FileChooserDialogImpl" timestamp="1610297925710">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="743" y="298" width="424" height="491" key="FileChooserDialogImpl/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610297925710" />
+    <state width="1874" height="284" key="GridCell.Tab.0.bottom" timestamp="1610298708143">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1874" height="284" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610298708143" />
+    <state width="1874" height="284" key="GridCell.Tab.0.center" timestamp="1610298708143">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1874" height="284" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610298708143" />
+    <state width="1874" height="284" key="GridCell.Tab.0.left" timestamp="1610298708143">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1874" height="284" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610298708143" />
+    <state width="1874" height="284" key="GridCell.Tab.0.right" timestamp="1610298708143">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1874" height="284" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610298708143" />
+    <state width="1874" height="351" key="GridCell.Tab.1.bottom" timestamp="1610298658985">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1874" height="351" key="GridCell.Tab.1.bottom/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610298658985" />
+    <state width="1874" height="351" key="GridCell.Tab.1.center" timestamp="1610298658985">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1874" height="351" key="GridCell.Tab.1.center/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610298658985" />
+    <state width="1874" height="351" key="GridCell.Tab.1.left" timestamp="1610298658985">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1874" height="351" key="GridCell.Tab.1.left/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610298658985" />
+    <state width="1874" height="351" key="GridCell.Tab.1.right" timestamp="1610298658985">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1874" height="351" key="GridCell.Tab.1.right/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610298658985" />
+    <state x="449" y="175" width="1022" height="737" key="SettingsEditor" timestamp="1610298573999">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="449" y="175" width="1022" height="737" key="SettingsEditor/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610298573999" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Bimanual_Action_Recognition$Bimac.coverage" NAME="Bimac Coverage Results" MODIFIED="1610298658969" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
