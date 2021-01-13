@@ -4,6 +4,7 @@ import pickle
 import time
 import traceback
 from typing import List, Tuple, Dict, Generator, Any
+import numpy as np
 
 import actclass as ac
 
@@ -36,10 +37,14 @@ def get_dataset_paths(dataset_basepath: str, dataset_config: str) -> List[str]:
 def get_raw_dataset_paths(derived_data_basepath, ground_truth_basepath: str) -> Tuple[List[str], List[str]]:
     derived_data_paths: List[str] = []
     ground_truth_paths: List[str] = []
+    # list contains path to the derived and groundtruth data
 
     for subject, task, take in crawl_dataset():
         derived_data_paths.append(os.path.join(derived_data_basepath, subject, task, take))
         ground_truth_paths.append(os.path.join(ground_truth_basepath, subject, task, take + '.json'))
+
+    # derived_data_path: a path to the dataset
+    # derived_data_paths: a list contains paths to dataset, with specific subject, task, and take
 
     return derived_data_paths, ground_truth_paths
 
@@ -51,6 +56,7 @@ def crawl_dataset() -> Generator[Tuple[str, str, str], None, None]:
                      'task_7_w_free_hard_drive', 'task_8_w_hammering', 'task_9_w_sawing']:
             for take in ['take_{}'.format(take_i) for take_i in range(10)]:
                 yield subject, task, take
+                # yield: function will return a generator
 
 
 class BoundingBox:
@@ -344,6 +350,7 @@ class Recording:
             while not loaded_successfully:
                 try:
                     with open(get_path(i)) as of:
+                        # path example for _load_objects(): derived_data_path + "3d_objects" + frame_10
                         yield json.load(of)
                     loaded_successfully = True
                 except IOError:
@@ -429,13 +436,12 @@ class SceneGraphProxy:
 
 def load_symbolic(out_path):
     cachefile = os.path.join(out_path, 'dataset_caches', 'symbolic_dataset.cache')
-
     ac.print2('Loading from cachefile.')
     with open(cachefile, 'rb') as f:
         recs = pickle.load(f)
         ac.print3('Done loading from cachefile.')
-
-    return recs
+    print("after loading")
+    return np.array(recs)
 
 
 def symbolic_datset_exists(basepath: str) -> bool:
@@ -444,6 +450,7 @@ def symbolic_datset_exists(basepath: str) -> bool:
 
 
 def generate_symbolic_dataset(dataset_path, basepath) -> None:
+
     derived_data = 'bimacs_derived_data'
     rgbd_data_ground_truth = 'bimacs_rgbd_data_ground_truth'
 
@@ -506,3 +513,15 @@ def generate_dataset(basepath: str, config: str, history_size: int) -> None:
                 'left': scene_graph.to_data_dict(mirrored=True)
             }
             write_frame(subject, task, take, i, graphs)
+
+
+def main():
+
+    dataset_path = "/home/yuxuan/project/Bimanual_Action_Recognition/KIT_BIMACS_DATASET"
+    base_path = "/home/yuxuan/project/Bimanual_Action_Recognition"
+
+    generate_symbolic_dataset(dataset_path, base_path)
+
+
+if __name__ == "__main__":
+    main()

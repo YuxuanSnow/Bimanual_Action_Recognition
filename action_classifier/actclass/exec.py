@@ -328,6 +328,8 @@ def evaluate(args) -> int:
 
 def parse_args(argv: List[str], env: Dict[str, str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(prog='ac')
+    # ArgumentParser: Object for parsing command line strings into Python objects
+    # prog -- name of the program. (default: sys.argv[0])
     subparsers = parser.add_subparsers(dest='command')
     mkevenv_parser = subparsers.add_parser('mkevenv')
     train_parser = subparsers.add_parser('train')
@@ -378,8 +380,7 @@ def parse_args(argv: List[str], env: Dict[str, str]) -> argparse.Namespace:
     # Dataset.
     dataset_parser.add_argument('--history-size', type=int, default=10, required=False,
                                 help='Amount of scene graphs to be considered in the history for temporal edges')
-    dataset_parser.add_argument('--raw-dataset-path', type=str, required=False,
-                                default=env['dataset_path_default'],
+    dataset_parser.add_argument('--raw-dataset-path', type=str, default=env['dataset_path_default'],required=False,
                                 help='Path to the raw dataset')
 
     # Parse args.
@@ -405,12 +406,26 @@ def parse_args(argv: List[str], env: Dict[str, str]) -> argparse.Namespace:
 def main(argv: List[str]):
     ac.print0('Running on `{}`.'.format(socket.gethostname()))
     env = {
-        'dataset_path_default': os.getenv('BIMACS_DATASET_PATH', None),
-        'basepath_default': os.getenv('BIMACS_BASEPATH', None)
+        'dataset_path_default': "/home/yuxuan/project/Bimanual_Action_Recognition/KIT_BIMACS_DATASET",
+        'basepath_default': "/home/yuxuan/project/Bimanual_Action_Recognition"
+        # cannot use the env variable, have no idea why it doesn't work
+
+        # 'dataset_path_default': os.getenv('BIMACS_DATASET_PATH', None),
+        # 'basepath_default': os.getenv('BIMACS_BASEPATH', None)
+        # os.getenv() method in Python returns the value of the environment variable key if it exists otherwise returns
+        # the default value. So people may have to add them into environment variable to clarify the path.
     }
+    print(env['dataset_path_default'])
+    print(env['basepath_default'])
     args = parse_args(argv, env)
+    # this args contain methods and arguments
+    # argv: methods in the module: [mkevenv, train, predict, dataset, evaluate]
+    # if argv is dataset, then parse_args(dataset, env)
     try:
         code = getattr(ac.exec, args.command)(args)
+        # Get a named attribute from an object; getattr(x, 'y') is equivalent to x.y.
+        # getattr(object, method)(argument of method): object calls the method with the given argument
+        # More specifically: ac.exec.args.command(args)
     except KeyboardInterrupt:
         ac.print0('Interrupted by user.')
         code = STATUS_INTERRUPTED

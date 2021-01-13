@@ -7,3 +7,5 @@ import actclass as ac
 
 if __name__ == '__main__':
     sys.exit(ac.exec.main(sys.argv[1:]))
+    # sys.argv[1:]: give arguments on the command line from first position to the function
+    # sys.exit: exit the module
