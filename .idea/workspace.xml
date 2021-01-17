@@ -20,21 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b34aa40-1a66-4c9c-983b-587d79741d5f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Classification.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/ConvLSTM.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/GNN_IMG.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/LinkFunction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/MessageFunction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/ReadoutFunction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/UpdateFunction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utils/logutil.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utils/utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dataset_caches/symbolic_dataset.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Bimanual_Action_Recognition.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Bimanual_Action_Recognition.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Flatten_sg.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Untitled.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Untitled.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/action_classifier/ac" beforeDir="false" afterPath="$PROJECT_DIR$/action_classifier/ac" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/action_classifier/actclass/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/action_classifier/actclass/dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/action_classifier/actclass/exec.py" beforeDir="false" afterPath="$PROJECT_DIR$/action_classifier/actclass/exec.py" afterDir="false" />
     </list>
@@ -168,6 +156,9 @@
       <module name="Bimanual_Action_Recognition" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/action_classifier/actclass" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -228,7 +219,8 @@
       <workItem from="1610311565377" duration="2467000" />
       <workItem from="1610437871695" duration="8590000" />
       <workItem from="1610478412461" duration="1661000" />
-      <workItem from="1610542790296" duration="20344000" />
+      <workItem from="1610542790296" duration="21210000" />
+      <workItem from="1610880882402" duration="10469000" />
     </task>
     <servers />
   </component>
@@ -311,10 +303,10 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2526" y="167" width="770" height="780" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610557589132" />
-    <state x="1668" y="27" width="1542" height="835" maximized="true" key="dock-window-1" timestamp="1610550974149">
+    <state x="1668" y="27" width="1542" height="835" maximized="true" key="dock-window-1" timestamp="1610881075077">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="1668" y="27" width="1542" height="835" maximized="true" key="dock-window-1/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610550974149" />
+    <state x="1668" y="27" width="1542" height="835" maximized="true" key="dock-window-1/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1610881075077" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Bimanual_Action_Recognition$Bimac.coverage" NAME="Bimac Coverage Results" MODIFIED="1610298658969" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
