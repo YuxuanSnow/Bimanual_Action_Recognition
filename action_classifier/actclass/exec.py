@@ -6,6 +6,7 @@ import sklearn.metrics
 import socket
 import traceback
 from typing import List, Dict
+import shutil
 
 import numpy as np
 
@@ -21,8 +22,9 @@ STATUS_UNHANDLED_EXCEPTION = 128
 def mkevenv(args) -> int:
     assert os.path.exists(args.basepath), 'Basepath `{}` is not a valid path.'.format(args.basepath)
     namespace_path = os.path.join(args.basepath, args.namespace)
-    assert not os.path.exists(namespace_path), 'Namespace `{}` already exists in `{}`'.format(args.basepath,
-                                                                                              args.namespace)
+    if os.path.exists(namespace_path):
+        shutil.rmtree(namespace_path)
+    assert not os.path.exists(namespace_path), 'Namespace `{}` already exists in `{}`'.format(args.namespace, args.basepath)
 
     # Prepare data.
     env_config = args.__dict__
@@ -56,6 +58,7 @@ def dataset(args) -> int:
 
 
 def train(args) -> int:
+
     assert os.path.exists(args.basepath), 'Basepath `{}` is not a valid path.'.format(args.basepath)
     assert os.path.exists(os.path.join(args.basepath, 'dataset_caches', args.dataset_config)), \
         'Dataset config `{}` does not exist in `{}/dataset_caches`'.format(args.dataset_config, args.basepath)
@@ -77,9 +80,11 @@ def train(args) -> int:
 
     def is_ev_sub(fs: ac.dataset.SceneGraphProxy):
         return fs.subject == args.evaluation_id
+    # if current subject id equals evaluation id
 
     def is_vld(fs: ac.dataset.SceneGraphProxy):
         return fs.take == args.validation_id
+    # if current take id equals validation id
 
     ac.print1('Prepare data.')
     train_set = ac.dataset.load(args.basepath, args.dataset_config,
@@ -347,7 +352,7 @@ def parse_args(argv: List[str], env: Dict[str, str]) -> argparse.Namespace:
                        help='Sets the verbosity')
     # Namespace argument.
     for p in [mkevenv_parser, train_parser, predict_parser, evaluate_parser]:
-        p.add_argument('-n', '--namespace', type=str, required=True,
+        p.add_argument('-n', '--namespace', type=str, required=True, default='env',
                        help='String identifier of the namespace')
     # Left out subject ID, restore point for model.
     for p in [train_parser, predict_parser]:
@@ -358,7 +363,7 @@ def parse_args(argv: List[str], env: Dict[str, str]) -> argparse.Namespace:
                        help='Iteration number of the state to restore')
 
     # Make evaluation environment.
-    mkevenv_parser.add_argument('--dataset-config', type=str, required=True,
+    mkevenv_parser.add_argument('--dataset-config', type=str, required=True, default='h10',
                                 help='String identifier of the dataset configuration')
     mkevenv_parser.add_argument('--processing-steps-count', type=int, default=10,
                                 help='Number of processing steps the graph network should perform.')
@@ -407,7 +412,7 @@ def main(argv: List[str]):
     ac.print0('Running on `{}`.'.format(socket.gethostname()))
     env = {
         'dataset_path_default': "/home/yuxuan/project/Bimanual_Action_Recognition/KIT_BIMACS_DATASET",
-        'basepath_default': "/home/yuxuan/project/Bimanual_Action_Recognition"
+        'basepath_default': "/home/yuxuan/project/Bimanual_Action_Recognition/Processed"
         # cannot use the env variable, have no idea why it doesn't work
 
         # 'dataset_path_default': os.getenv('BIMACS_DATASET_PATH', None),

@@ -29,7 +29,8 @@ Get general help with `./ac -h`, or `./ac <subcommand> -h` for help with a speci
 Available subcommands are:
 
 - `dataset`: Generate the dataset (symbolic and graphs)
-- `mkevenv`: Create a parametrised evaluation environment for consecutive commands 
+- `mkevenv`: Create a parametrised evaluation environment for consecutive commands <br>
+Possible required environment setting: ./ac mkevenv --namespace env --dataset-config h10 --evaluation-mode normal
 - `train`: Train a model
 - `predict`: Record the predictions of a model for the given evaluation subject
 - `evaluate`: Run various evaluations and analysis
