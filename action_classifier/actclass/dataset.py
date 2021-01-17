@@ -135,6 +135,8 @@ class GroundTruth:
 
 
 def one_hot_encode(length: int, elements: List[int]) -> List[float]:
+    # Definition one_hot_encoding: a one-hot is a group of bits among which the legal combinations of values are only
+    # those with a single high (1) bit and all the others low (0).
     if not isinstance(length, int) or length < 0:
         raise ValueError('length must be an int <= 0')
     if not isinstance(elements, list):
@@ -319,7 +321,10 @@ class Recording:
 
     def to_scene_graphs(self, frame_number: int, history_size: int = 10) -> List[SceneGraph]:
         assert 0 <= frame_number < self.frame_count, 'Requested frame out of range'
+        # for each frame i define a list of Scenegraph
         sgl: List[SceneGraph] = []
+        # here history_size = 10 means 10 scenegraph has to be considered for temporal edge
+        # if current frame less than 10, than take all frames before into list sgl
         for i in range(max(frame_number - history_size + 1, 0), frame_number + 1, 1):
             sgl.append(self.to_scene_graph(i))
         return sgl
@@ -436,12 +441,10 @@ class SceneGraphProxy:
 
 def load_symbolic(out_path):
     cachefile = os.path.join(out_path, 'dataset_caches', 'symbolic_dataset.cache')
-    ac.print2('Loading from cachefile.')
     with open(cachefile, 'rb') as f:
         recs = pickle.load(f)
         ac.print3('Done loading from cachefile.')
-    print("after loading")
-    return np.array(recs)
+    return recs
 
 
 def symbolic_datset_exists(basepath: str) -> bool:
