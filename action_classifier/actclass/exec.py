@@ -415,8 +415,10 @@ def main(argv: List[str]):
         # os.getenv() method in Python returns the value of the environment variable key if it exists otherwise returns
         # the default value. So people may have to add them into environment variable to clarify the path.
     }
-    print(env['dataset_path_default'])
-    print(env['basepath_default'])
+
+    print("Data_raw_path:", env['dataset_path_default'])
+    print("Data_base_path:", env['basepath_default'])
+
     args = parse_args(argv, env)
     # this args contain methods and arguments
     # argv: methods in the module: [mkevenv, train, predict, dataset, evaluate]
