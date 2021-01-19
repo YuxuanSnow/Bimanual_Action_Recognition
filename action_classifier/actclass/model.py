@@ -110,7 +110,7 @@ class ActionClassifierModel:
 
         :param out_path: General output folder.
         """
-        tf.reset_default_graph()
+        tf.compat.v1.reset_default_graph()
 
         # Model parameters.
         self.processing_steps_count: int = processing_steps_count
@@ -159,20 +159,22 @@ class ActionClassifierModel:
         # Data.
         # Input and target placeholders.
         placeholder = [train_set[0].load()]
-        input_ph = gn.utils_tf.placeholders_from_data_dicts(placeholder)
-        target_ph = gn.utils_tf.placeholders_from_data_dicts(placeholder)
+        input_ph = gn.utils_tf.placeholders_from_data_dicts(placeholder)   # input graph: for edge, node
+        target_ph = gn.utils_tf.placeholders_from_data_dicts(placeholder)  # target graph: for global attribute
 
         # A list of outputs, one per processing step.
-        output_ops_tr = self.model(input_ph, self.processing_steps_count)
+        output_ops_tr = self.model(input_ph, self.processing_steps_count)  # send input graph into model and has output graphs
+        # tr: train
         output_ops_ge = self.model(input_ph, self.processing_steps_count)
+        # ge: generalization
 
         # Training loss.
-        loss_ops_tr = self._create_loss_ops(target_ph, output_ops_tr)
+        loss_ops_tr = self._create_loss_ops(target_ph, output_ops_tr)      # losses between target & output global attribute of each processing step
         # Loss across processing steps.
-        loss_op_tr = sum(loss_ops_tr) / self.processing_steps_count
+        loss_op_tr = sum(loss_ops_tr) / self.processing_steps_count        # average loss as training loss
         # Generalization loss.
         loss_ops_ge = self._create_loss_ops(target_ph, output_ops_ge)
-        loss_op_ge = loss_ops_ge[-1]  # Loss from final processing step.
+        loss_op_ge = loss_ops_ge[-1]                                       # loss of last training step as generalization loss
 
         # Global step variable.
         global_step = tf.Variable(0, name='global_step', trainable=False)
@@ -359,8 +361,7 @@ class ActionClassifierModel:
         if not isinstance(output_ops, collections.Sequence):
             raise Exception('Is not a collection!')
         loss_ops = [
-            tf.losses.softmax_cross_entropy(target_op.globals, output_op.globals)
-            for output_op in output_ops
+            tf.losses.softmax_cross_entropy(target_op.globals, output_op.globals) for output_op in output_ops
         ]
         return loss_ops
 
@@ -520,6 +521,7 @@ class ActionClassifierModel:
         return ground_truth, top_1, top_3
 
 
+# Construct a multilayerperceptron
 def make_mlp_model(layer_count: int, neuron_count):
     """
     Instantiates a new MLP, followed by LayerNorm.
@@ -533,7 +535,7 @@ def make_mlp_model(layer_count: int, neuron_count):
 
     return lambda: snt.Sequential([
         snt.nets.MLP([neuron_count] * layer_count, activate_final=True),
-        snt.LayerNorm()
+        snt.LayerNorm() # This is a generic implementation of normalization along specific axes of the input.
     ])
 
 
@@ -544,7 +546,7 @@ class MLPGraphIndependent(snt.AbstractModule):
         super(MLPGraphIndependent, self).__init__(name=name)
         with self._enter_variable_scope():
             self._network = gn.modules.GraphIndependent(
-                edge_model_fn=make_mlp_model(layer_count, neuron_count),
+                edge_model_fn=make_mlp_model(layer_count, neuron_count), # here the functions are multilayer perceptron followed by layer normalization
                 node_model_fn=make_mlp_model(layer_count, neuron_count),
                 global_model_fn=make_mlp_model(layer_count, neuron_count))
 
@@ -596,13 +598,14 @@ class EncodeProcessDecode(snt.AbstractModule):
         super(EncodeProcessDecode, self).__init__(name=name)
         self.layer_count = layer_count
         self.neuron_count = neuron_count
-        self._encoder = MLPGraphIndependent(layer_count, neuron_count)
-        self._core = MLPGraphNetwork(layer_count, neuron_count)
-        self._decoder = MLPGraphIndependent(layer_count, neuron_count)
+        self._encoder = MLPGraphIndependent(layer_count, neuron_count)  # Graph independent
+        self._core = MLPGraphNetwork(layer_count, neuron_count)         # Graph network
+        self._decoder = MLPGraphIndependent(layer_count, neuron_count)  # Graph independent
         # Transforms the outputs into the appropriate shapes.
         if edge_output_size is None:
             edge_fn = None
         else:
+            # snt.linear: a linear layer only defines the output dimensionality, and the module has a name
             edge_fn = lambda: snt.Linear(edge_output_size, name='edge_output')
         if node_output_size is None:
             node_fn = None

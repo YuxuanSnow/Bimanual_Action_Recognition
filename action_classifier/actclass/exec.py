@@ -69,6 +69,7 @@ def train(args) -> int:
 
     assert os.path.exists(namespace_path), 'Namespace `{}` does not exist.'.format(args.namespace)
     if args.restore is None:
+        # if the path exist, that means there exists a trained model for the history size
         assert not os.path.exists(fold_path), 'An evaluation was already started for subject #{}.'.format(
             args.evaluation_id)
 
@@ -112,6 +113,7 @@ def train(args) -> int:
     import actclass.model
     model = ac.model.ActionClassifierModel(fold_path, processing_steps_count=args.processing_steps_count,
                                            layer_count=args.layer_count, neuron_count=args.neuron_count)
+    print("Model built")
     model.train(train_set, valid_set,
                 restore=args.restore, max_iteration=args.max_iteration, log_interval=args.log_interval,
                 save_interval=args.save_interval)
