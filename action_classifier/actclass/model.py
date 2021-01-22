@@ -213,13 +213,14 @@ class ActionClassifierModel:
             # Run session.
             iteration_no = self.session.run(global_step)
             feed_dict_tr = self._create_train_feed_dict(iteration_no, train_set, batch_size_train, input_ph, target_ph)
+            # training deed dict: contains filtered scenegraphs without groundtruth und scenegraphs with groundtruth for current batch
             run_params_tr = {
-                'step': step_op,
+                'step': step_op,  # step_op is objective of the training step
                 'targets': target_ph,
                 'loss': loss_op_tr,
                 'outputs': output_ops_tr,
             }
-            train_values = self.session.run(run_params_tr, feed_dict=feed_dict_tr)
+            train_values = self.session.run(run_params_tr, feed_dict=feed_dict_tr)  # returned value is a dictionary
 
             # Save model (only if not the first iteration after starting).
             if iteration_no % save_interval == 0 and iteration_no not in [0, restore]:
@@ -240,8 +241,8 @@ class ActionClassifierModel:
                     'loss': loss_op_ge,
                     'outputs': output_ops_ge,
                 }
-                test_values = self.session.run(run_params_ge, feed_dict=feed_dict_ge)
-                cor_tr, cor3_tr = self._compute_accuracy(train_values['targets'], train_values['outputs'][-1])
+                test_values = self.session.run(run_params_ge, feed_dict=feed_dict_ge)  # contains frames of whole validation batch
+                cor_tr, cor3_tr = self._compute_accuracy(train_values['targets'], train_values['outputs'][-1])  # training accuracy between groundtruth and last step processing result
                 cor_ge, cor3_ge = self._compute_accuracy(test_values['targets'], test_values['outputs'][-1])
                 elapsed = time.time() - start_time
                 loss_tr = train_values['loss']
@@ -252,11 +253,12 @@ class ActionClassifierModel:
                 ac.print1(log_line.format(iteration_no, elapsed, loss_tr, loss_ge, cor_tr, cor_ge, cor3_tr, cor3_ge))
 
                 # Confusion matrix.
-                cm_gt, cm_top_1, cm_top_3 = self._compute_confusions(test_values['targets'], test_values['outputs'][-1])
+                cm_gt, cm_top_1, cm_top_3 = self._compute_confusions(test_values['targets'], test_values['outputs'][-1])    # list of groundtruth, top1 prediction, top3 prediction of the validation batch
                 train_state.log_validation(elapsed, int(iteration_no), float(loss_tr), float(loss_ge),
                                            float(cor_tr), float(cor_ge), float(cor3_tr), float(cor3_ge),
                                            list(cm_gt.tolist()), list(cm_top_1.tolist()), list(cm_top_3.tolist()))
-                true, pred1, pred3 = train_state.numpy_confusions()
+
+                true, pred1, pred3 = train_state.numpy_confusions()  # reshape(-1)
                 classes = np.array(ac.actions)
                 filename_conf1 = os.path.join(self.out_path, 'confusion_matrices',
                                               'conf_top1_{}.png'.format(iteration_no))
@@ -281,13 +283,13 @@ class ActionClassifierModel:
 
         # Init and restore session.
         self._init_session()
-        self._restore_session(restore)
+        self._restore_session(restore)  # restore the model from given iteration number
         ac.print3('Model restored from `{}`.'.format(self.saver_path))
 
         times: List[float] = []  # To assess timings.
         current_take = {'right': [], 'left': []}
         global_frame_id: int = 0
-        current_frame: ac.dataset.SceneGraphProxy = test_set[global_frame_id]
+        current_frame: ac.dataset.SceneGraphProxy = test_set[global_frame_id]  # load scengraph from idex 0 in test set
 
         # Helper function to check if the current frame is the last frame in this take.
         def is_last_frame_in_take():
@@ -298,7 +300,7 @@ class ActionClassifierModel:
 
         ac.print2('Looping over test set now.')
         has_next_frame: bool = True
-        while has_next_frame:
+        while has_next_frame:                                                   # repeat it until there is no new frame
             start_time = time.time()
             # Get predictions and append them to list.
             graph = current_frame.load()
@@ -313,10 +315,10 @@ class ActionClassifierModel:
                 output = gn.utils_np.graphs_tuple_to_data_dicts(values['outputs'][-1])
                 assert len(output) == 1
                 output = output[0]['globals']
-                current_take[current_frame.side].append(output.tolist())
+                current_take[current_frame.side].append(output.tolist())        # output -> probability of each action index
                 times.append(time.time() - start_time)
             else:
-                current_take[current_frame.side].append([0] * len(ac.actions))
+                current_take[current_frame.side].append([0] * len(ac.actions))  # if the edge size is 0, no action recognized
                 times.append(time.time() - start_time)
 
             # Persist predictions if this was the last frame.
@@ -326,8 +328,8 @@ class ActionClassifierModel:
                 ac.print2('Writing predictions for `{}` ({} frames).'.format(identifier, len(current_take['right'])))
                 filename = 'predictions_{}.json'.format(identifier)
                 with open(os.path.join(self.out_path, 'predictions', filename), 'w') as fp:
-                    json.dump(current_take, fp)
-                current_take['right'] = []
+                    json.dump(current_take, fp)     # write action of left and right side of each take into file
+                current_take['right'] = []          # reset the action list
                 current_take['left'] = []
 
             # Try to load next frame or exit if it fails.
@@ -409,7 +411,7 @@ class ActionClassifierModel:
                     continue
                 assert np.sum(t['globals']) == 1
 
-                action = ac.actions[np.argmax(t['globals'])]
+                action = ac.actions[np.argmax(t['globals'])]  # because the saved information is in one-hot encoding
                 # Drop 2 of 3 idles.
                 if action == 'idle':
                     idle_counter += 1
@@ -420,6 +422,7 @@ class ActionClassifierModel:
                     hold_counter += 1
                     if hold_counter % 3 != 0:
                         continue
+                # because idle and hold posses too many frames, we drop those to decrease the effect of this two action
 
                 new_ds.append(t)
             return new_ds
@@ -431,7 +434,7 @@ class ActionClassifierModel:
         # Graphs with no edges may make the network crash.  Filter them before proceeding.
         for i in inputs:
             assert len(i['edges']) == len(i['senders']) == len(i['receivers'])
-        inputs = [i for i in inputs if len(i['edges']) > 0]
+        inputs = [i for i in inputs if len(i['edges']) > 0]     # every inputs should have edges, otherwise it doesn't work
         if len(inputs) == 0:
             assert False, 'should not happen'
             # inputs = copy.deepcopy(dataset[0:1])
@@ -449,13 +452,14 @@ class ActionClassifierModel:
         targets = copy.deepcopy(inputs)
 
         # Censor ground truth for input graphs.
+        # because for input graph we don't want it to have groundtruth, we want to train it.
         for input in inputs:
             input['globals'] = [0.] * len(ac.actions)
 
-        input_graphs = gn.utils_np.data_dicts_to_graphs_tuple(inputs)
-        target_graphs = gn.utils_np.data_dicts_to_graphs_tuple(targets)
+        input_graphs = gn.utils_np.data_dicts_to_graphs_tuple(inputs)    # input doens't contain groundtruth because it uses as features
+        target_graphs = gn.utils_np.data_dicts_to_graphs_tuple(targets)  # target contrains groundtruth because it uses as label
 
-        feed_dict = {input_ph: input_graphs, target_ph: target_graphs}
+        feed_dict = {input_ph: input_graphs, target_ph: target_graphs}   # return is a dictionary contain input and target for this batch
         return feed_dict
 
     @staticmethod
@@ -506,17 +510,17 @@ class ActionClassifierModel:
         top_1 = np.zeros([len(tdds)], dtype=np.int64)
         top_3 = np.zeros([len(tdds)], dtype=np.int64)
         for i, (td, od) in enumerate(zip(tdds, odds)):
-            xl = np.argmax(td['globals'], axis=-1)
+            xl = np.argmax(td['globals'], axis=-1)   # find the groundtruth action index
             out_cp = np.copy(od['globals'])
             yl1 = np.argmax(out_cp, axis=-1)  # Top guess.
             out_cp[yl1] = -100000  # Make small to get second biggest value.
             yl2 = np.argmax(out_cp, axis=-1)  # Second best guess.
-            out_cp[yl2] = -100000  # Make small to get second biggest value.
+            out_cp[yl2] = -100000  # Make small to get third biggest value.
             yl3 = np.argmax(out_cp, axis=-1)  # Third best guess.
             yl = xl if xl in [yl1, yl2, yl3] else yl1
             ground_truth[i] = xl
-            top_1[i] = yl1
-            top_3[i] = yl
+            top_1[i] = yl1  # predicted best action value
+            top_3[i] = yl   # the groundtruth if it is in top3 prediction
         assert len(ground_truth) == len(top_1) == len(top_3)
         return ground_truth, top_1, top_3
 

@@ -22,8 +22,8 @@ STATUS_UNHANDLED_EXCEPTION = 128
 def mkevenv(args) -> int:
     assert os.path.exists(args.basepath), 'Basepath `{}` is not a valid path.'.format(args.basepath)
     namespace_path = os.path.join(args.basepath, args.namespace)
-    if os.path.exists(namespace_path):
-        shutil.rmtree(namespace_path)
+
+    # the training and prediction logs are stored in the namespace path
     assert not os.path.exists(namespace_path), 'Namespace `{}` already exists in `{}`'.format(args.namespace, args.basepath)
 
     # Prepare data.
@@ -113,10 +113,11 @@ def train(args) -> int:
     import actclass.model
     model = ac.model.ActionClassifierModel(fold_path, processing_steps_count=args.processing_steps_count,
                                            layer_count=args.layer_count, neuron_count=args.neuron_count)
-    print("Model built")
+    # build model
     model.train(train_set, valid_set,
                 restore=args.restore, max_iteration=args.max_iteration, log_interval=args.log_interval,
                 save_interval=args.save_interval)
+    # train model
 
     return STATUS_OK
 
@@ -163,6 +164,7 @@ def evaluate(args) -> int:
     ac.plot.latexify(fig_height=2.8)
 
     for frame_number in [1, 2, 3, 4, 5, 6]:
+        print(os.path.join(namespace, 'leave_out_{}'.format(frame_number), 'predictions'))
         assert os.path.exists(os.path.join(namespace, 'leave_out_{}'.format(frame_number), 'predictions')), \
             'Predictions not complete!'
 
